@@ -55,7 +55,7 @@ ROOT_URLCONF = 'fampay.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'fampay.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'youtube',
+        'NAME': 'youtube_trial',
         'USER': 'postgres',
         'PASSWORD': 'sang1699',
         'HOST': 'localhost',

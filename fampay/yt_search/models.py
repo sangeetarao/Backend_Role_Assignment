@@ -7,6 +7,7 @@ class Videos(models.Model):
         blank=True,
         max_length=500
     )
+    id = models.AutoField(primary_key=True)
 
     description = models.CharField(
         null=True,
@@ -17,5 +18,11 @@ class Videos(models.Model):
     publishedAt = models.DateTimeField()
 
     thumbnailsUrls = models.URLField()
+    
+    video_id = models.CharField(
+        null=True,
+        blank=False,
+        max_length=200
+    )
 
 
