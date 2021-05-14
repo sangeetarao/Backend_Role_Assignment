@@ -1,29 +1,47 @@
 {% load static %}
 <head>
+    <style>
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .styled-table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #007a98;
+        }
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #002398;
+}
+      </style>
 <section class="jumbotron text-center">
     <div class="container">
       <h1 class="jumbotron-heading">{{Videos.title}}</h1>
-      
-      <!-- <p class="lead text-muted">{% for video in videos%}
-                                    {{video.publishedAt}}
-                                {% endfor %}
-      </p> -->
-      <!-- <form method="POST"> -->
-      <!-- <div class="input-group mb-3">
-          {% csrf_token %}
-          <input type="text" name="search" class="form-control" aria-label="Username">
-      </div> -->
-      <table>
+      <table class="styled-table" >
         <tr>
-          <th>Thumbnail</th>
+          <th>Thumbnail/URL</th>
           <th>Title</th>
           <th>Date</th>
           <th>Description</th>
         </tr>
         {% for result in videos %}
-        <tr>
-          
-          <!-- <th> <a href={{ result.thumbnailsUrls }}>{{ result.thumbnailsUrls }}</a></th> -->
+        <tr >
           <th> <a href={{ result.video_id }}><img src={{ result.thumbnailsUrls }}></a></th>
           <th> {{ result.title }}</th>
           <th> {{ result.publishedAt }}</th>
@@ -36,21 +54,3 @@
   </section>
 
 </head>
-
-<!-- <HTML>
-    <HEAD>
-    <TITLE>Value of Shares</TITLE>
-    <H3>Table Showing Cost of Shares</H3>
-    <BODY>
-    <TABLE BORDER=1>
-    <?php
-    for ($shares = 1; $shares <= 20; $shares++){
-       $cost = $shares * 20;
-       echo "<TR><TD>The cost of $shares share/s is $cost #x0024s</TD>","\n";
-       $dividend = $cost * 0.10;
-       echo "<TD>The dividend is $dividend #x0024s</TD></TR>  " ,"\n";
-    }
-    ?>
-    </TABLE>
-    </BODY>
-    </HTML> -->

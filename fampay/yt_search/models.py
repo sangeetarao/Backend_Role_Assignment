@@ -12,7 +12,7 @@ class Videos(models.Model):
     description = models.CharField(
         null=True,
         blank=True,
-        max_length=5000
+        max_length=10000
     )
 
     publishedAt = models.DateTimeField()
