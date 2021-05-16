@@ -5,20 +5,26 @@ from .models import Videos
 from django.template import Context, loader
 from django.http import HttpResponse
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
-
-
+from fampay import settings
 
 
 def index(request):
     from apiclient.discovery import build
-    api_key="AIzaSyBjDOWFZwkxzgAPeybtNOUvKOvTN_Q8MQM"
-    youtube = build('youtube','v3',developerKey=api_key)
-
-    res=youtube.search().list(q="Learn python",
-                            part='snippet',
-                            type='video',
-                            order='date',
-                            maxResults=5).execute()
+    check=False
+    for api_key in settings.YOUTUBE_API_KEY:
+        try:
+            youtube = build('youtube','v3',developerKey=api_key)
+            
+            res=youtube.search().list(q="Learn python",
+                                    part='snippet',
+                                    type='video',
+                                    order='date',
+                                    maxResults=100).execute()
+            check=True
+        except:
+            pass
+        if check:
+            break
     for item in res['items']:
         video_id = item['id']['videoId']
         publishedDateTime = item['snippet']['publishedAt']
@@ -58,7 +64,7 @@ def pages(request):
     paginator = Paginator(post_list, 10)
     page = request.GET.get('page')
     for post in post_list:
-        post['video_id']=f"https://www.youtube.com/watch?v={res['video_id']}"
+        post['video_id']=f"https://www.youtube.com/watch?v={post['video_id']}"
  
     try:
         posts = paginator.page(page)
