@@ -35,7 +35,7 @@
       <h1 class="jumbotron-heading">Search YouTube</h1>
       <p class="lead text-muted">YT videos in reverse chronological order</p>
       <p class="lead text-muted"> Predefined Query: Learn Python</p>
-      <form method="POST">
+      <form method="POST" action='/pages/'>
       <div class="input-group mb-3">
           {% csrf_token %}
           <input type="text" name="query" placeholder='Enter Query'class="form-control" aria-label="Username">

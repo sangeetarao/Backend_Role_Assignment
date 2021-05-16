@@ -4,38 +4,12 @@ from django.http import HttpResponse
 from .models import Videos
 from django.template import Context, loader
 from django.http import HttpResponse
-import schedule
-import time
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 
 
 
 def index(request):
-
-    if request.method=='POST':
-        query=request.POST['query']
-        if request.POST['type_of_search']=='Title':
-            results=Videos.objects.order_by('-publishedAt').values('title','description','publishedAt','thumbnailsUrls','video_id').filter(title__icontains=query)
-        else:
-            results=Videos.objects.order_by('-publishedAt').values('title','description','publishedAt','thumbnailsUrls','video_id').filter(description__icontains=query)
-        video_data=[]
-        for result in results:
-            videos_dict = {
-                    'title' : result['title'],
-                    'description': result['description'],
-                    'publishedAt':result['publishedAt'],
-                    'thumbnailsUrls':result['thumbnailsUrls'],
-                    'video_id':f"https://www.youtube.com/watch?v={result['video_id']}"
-                            }
-                
-            video_data.append(videos_dict) 
-        context = {
-            'videos' : video_data
-        }     
-
-        return render(request,'indexpage.html',context)
-
-
     from apiclient.discovery import build
     api_key="AIzaSyBjDOWFZwkxzgAPeybtNOUvKOvTN_Q8MQM"
     youtube = build('youtube','v3',developerKey=api_key)
@@ -70,4 +44,30 @@ def index(request):
                         video_id=video_id
             )
     return render(request,'home.html')
+
+
+def pages(request):
+    if request.method=='POST':
+        global query,type_of_search
+        query=request.POST['query']
+        type_of_search=request.POST["type_of_search"]
+    if type_of_search=='Description':
+        post_list=Videos.objects.order_by('-publishedAt').values('title','description','publishedAt','thumbnailsUrls','video_id').filter(description__icontains=query)
+    else:
+        post_list=Videos.objects.order_by('-publishedAt').values('title','description','publishedAt','thumbnailsUrls','video_id').filter(title__icontains=query)
+    paginator = Paginator(post_list, 10)
+    page = request.GET.get('page')
+    for post in post_list:
+        post['video_id']=f"https://www.youtube.com/watch?v={res['video_id']}"
+ 
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+ 
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    
+    return render(request, 'index.html', {'page':page,'posts':posts})
+
 
