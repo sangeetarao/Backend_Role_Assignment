@@ -6,7 +6,7 @@ An API to fetch latest videos from youtube sorted in reverse chronological order
 - Make sure you have python installed
 - Get Google API Key and add it to settings.py file under YOUTUBE_API_KEYS.
 - Run requirements.txt file `pip install -r requirements.txt`
-- Run server by using the command `python mange.py runserver` on the terminal
+- Run server by using the command `python manage.py runserver` on the terminal
 - Go to the mentioned url on the terminal to access the project 
 
 ## How to run project on docker:
