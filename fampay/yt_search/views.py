@@ -4,7 +4,10 @@ from django.http import HttpResponse
 from .models import Videos
 from django.template import Context, loader
 from django.http import HttpResponse
-# from django.core.exceptions import FieldDoesNotExist
+import schedule
+import time
+
+
 
 
 def index(request):
@@ -41,7 +44,7 @@ def index(request):
                             part='snippet',
                             type='video',
                             order='date',
-                            maxResults=50).execute()
+                            maxResults=5).execute()
     for item in res['items']:
         video_id = item['id']['videoId']
         publishedDateTime = item['snippet']['publishedAt']
@@ -67,3 +70,4 @@ def index(request):
                         video_id=video_id
             )
     return render(request,'home.html')
+
