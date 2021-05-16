@@ -74,22 +74,26 @@ WSGI_APPLICATION = 'fampay.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# If you want to use PSQL:
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'name of database',
+#         'USER': 'postgres',
+#         'PASSWORD': 'password',
+#         'HOST': 'localhost',
+#         'PORT': '',
 #     }
 # }
+#Use default database:
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'youtube_trial',
-        'USER': 'postgres',
-        'PASSWORD': 'sang1699',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+YOUTUBE_API_KEY=['AIzaSyBjDOWFZwkxzgAPeybtNOUvKOvTN_Q8MQM',"AIzaSyBjDOWFZwkxzgAPeybtNOUvKOvTN_Q8MQM"]
 
 
 # Password validation
