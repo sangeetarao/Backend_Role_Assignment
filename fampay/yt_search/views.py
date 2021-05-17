@@ -1,12 +1,10 @@
 from django.db.models import query
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from .models import Videos
 from django.template import Context, loader
-from django.http import HttpResponse
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from fampay import settings
-
+from .models import Videos
 
 def index(request):
     from apiclient.discovery import build
@@ -32,7 +30,6 @@ def index(request):
         description = item['snippet']['description']
         thumbnailsUrls = item['snippet']['thumbnails']['default']['url']
         video_id = item['id']['videoId']
-        print(title)
         try:
             Videos.objects.get(
                         title=title,
